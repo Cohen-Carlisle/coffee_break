@@ -20,10 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-```ruby
-include CoffeeBreak
-Coffee.break # => "☕"
-```
+TODO
 
 ## Development
 
