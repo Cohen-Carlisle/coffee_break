@@ -1,6 +1,6 @@
 require "coffee_break/version"
 require "coffee_break/errors"
-require "coffee_break/defaults"
+require "coffee_break/default"
 require "coffee_break/waiter/coffee"
 
 module CoffeeBreak
