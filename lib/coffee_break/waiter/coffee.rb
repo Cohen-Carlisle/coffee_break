@@ -14,7 +14,7 @@ module CoffeeBreak
         alias break new
       end
 
-      def until(message: "Timed out after #{@timeout} seconds")
+      def until(message: nil)
         result = nil
         end_time = Time.now + @timeout
         loop do
@@ -26,7 +26,12 @@ module CoffeeBreak
           break if Time.now >= end_time
           sleep @interval
         end
-        @raise ? raise(TimeoutError, message) : result
+        if @raise
+          raise(TimeoutError, message || "Timed out after #{@timeout} seconds")
+        else
+          warn message if message
+          result
+        end
       end
     end
   end

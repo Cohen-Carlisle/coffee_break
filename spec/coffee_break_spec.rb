@@ -132,10 +132,23 @@ describe CoffeeBreak do
           expect(with_falsey_block).to raise_error(error, message)
         end
 
-        it 'can report a custom error message' do
+        it 'can report a custom error message when raise is true' do
           custom_message = 'This is a custom message'
           timeout = -> { Coffee.break.until(message: custom_message) { false } }
           expect(timeout).to raise_error(custom_message)
+        end
+
+        it 'can warn with a custom message when raise is false' do
+          custom_message = 'This is a custom message'
+          timeout = -> do
+            Coffee.break(raise: false).until(message: custom_message) { false }
+          end
+          expect(timeout).to output(/#{custom_message}/).to_stderr
+        end
+
+        it 'does not warn by default' do
+          timeout = -> { Coffee.break(raise: false).until { false } }
+          expect(timeout).not_to output.to_stderr
         end
 
         it 'returns the result if configured not to raise error on timeout' do
